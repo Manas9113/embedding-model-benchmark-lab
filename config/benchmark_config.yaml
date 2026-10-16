@@ -1,0 +1,56 @@
+# ==============================================================================
+# Embedding Model Benchmark Lab - Central Configuration
+# ==============================================================================
+
+experiment:
+  name: "dense_retrieval_benchmark"
+  random_seed: 42
+  device: "auto"  # "auto", "cuda", or "cpu"
+
+models:
+  - id: "sentence-transformers/all-MiniLM-L6-v2"
+    name: "all-MiniLM-L6-v2"
+    architecture: "MiniLM (6-layer BERT distillation)"
+    dimension: 384
+    max_seq_length: 256
+    query_prefix: ""
+    doc_prefix: ""
+
+  - id: "BAAI/bge-small-en-v1.5"
+    name: "bge-small-en-v1.5"
+    architecture: "BERT-style RetroMAE"
+    dimension: 384
+    max_seq_length: 256
+    query_prefix: "Represent this sentence for searching relevant passages: "
+    doc_prefix: ""
+
+  - id: "sentence-transformers/all-mpnet-base-v2"
+    name: "all-mpnet-base-v2"
+    architecture: "MPNet (Masked and Permuted Pre-training)"
+    dimension: 768
+    max_seq_length: 256
+    query_prefix: ""
+    doc_prefix: ""
+
+dataset:
+  name: "nfcorpus"
+  source: "beir"
+  download_url: "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nfcorpus.zip"
+  data_dir: "data/nfcorpus"
+
+benchmark:
+  latency:
+    warmup_runs: 5
+    num_trials: 50
+    batch_size: 1
+  throughput:
+    warmup_batches: 2
+    batch_sizes: [8, 16, 32, 64]
+  evaluation:
+    top_k_values: [1, 3, 5, 10]
+    metrics: ["recall", "precision", "mrr", "ndcg"]
+
+paths:
+  results_raw: "results/raw"
+  results_tables: "results/tables"
+  results_figures: "results/figures"

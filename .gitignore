@@ -1,0 +1,37 @@
+# Python environment
+.venv/
+venv/
+ENV/
+env/
+*.py[cod]
+*$py.class
+__pycache__/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# Datasets & Downloads (keep data dir, ignore large downloads)
+data/*
+!data/.gitkeep
+
+# Benchmark results cache (keep directory structure)
+results/raw/*.json
+!results/raw/.gitkeep
+results/tables/*.csv
+!results/tables/.gitkeep
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Hugging Face cache
+.cache/
+hf_cache/
